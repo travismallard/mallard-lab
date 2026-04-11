@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mallard Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-dark:   #2E5545;
+      --green-mid:    #4A7A6B;
+      --green-light:  #7AAB96;
+      --tan:          #C4B08A;
+      --tan-light:    #E2D8C3;
+      --cream:        #F2EDE3;
+      --rust:         #C4622D;
+      --rust-dark:    #9E4A1E;
+      --brown:        #7A4A2A;
+      --white:        #FDFAF5;
+      --text-dark:    #1C2B23;
+      --text-mid:     #3A4F44;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--tan-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+    }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--green-dark);
+      letter-spacing: 0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+
+    .nav-cta {
+      background: var(--rust) !important;
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--rust-dark) !important; }
+
+    /* ─── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--green-dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 5rem 6rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 100%, rgba(74,122,107,0.35) 0%, transparent 60%);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 4vw, 4.2rem);
+      line-height: 1.1;
+      color: var(--white);
+      position: relative;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--tan);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--tan-light);
+      max-width: 480px;
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .btn-primary {
+      background: var(--rust);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--rust-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--tan);
+      color: var(--tan);
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(196,176,138,0.15);
+      transform: translateY(-1px);
+    }
+
+    .hero-right {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 100% 0%, rgba(74,122,107,0.08) 0%, transparent 55%);
+    }
+
+    .hero-logo-wrap {
+      width: min(420px, 90%);
+      aspect-ratio: 1;
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 48px rgba(46,85,69,0.18));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    /* ─── SECTION SHARED ──────────────────────────── */
+    section { padding: 7rem 6rem; }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      line-height: 1.2;
+      color: var(--green-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      max-width: 620px;
+    }
+
+    /* ─── ABOUT STRIP ─────────────────────────────── */
+    .about-strip {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+
+    .about-text {
+      padding: 7rem 5rem 7rem 6rem;
+    }
+
+    .about-image {
+      background: var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image-placeholder {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* decorative DNA helix pattern */
+    .about-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 28px,
+        rgba(255,255,255,0.04) 28px,
+        rgba(255,255,255,0.04) 30px
+      );
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1.5px solid var(--tan-light);
+    }
+
+    .stat { }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      color: var(--rust);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+    }
+
+    /* ─── RESEARCH ────────────────────────────────── */
+    .research {
+      background: var(--cream);
+    }
+
+    .research-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+      align-items: end;
+    }
+
+    .research-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .research-card {
+      background: var(--white);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1.5px solid var(--tan-light);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .research-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(46,85,69,0.1);
+    }
+
+    .card-accent {
+      height: 5px;
+      background: var(--green-dark);
+    }
+
+    .research-card:nth-child(2) .card-accent { background: var(--rust); }
+    .research-card:nth-child(3) .card-accent { background: var(--green-mid); }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.25rem;
+      opacity: 0.75;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--green-dark);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      text-decoration: none;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+
+    /* ─── PUBLICATIONS ───────────────────────────── */
+    .publications {
+      background: var(--white);
+    }
+
+    .pub-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 3rem;
+      max-width: 1100px;
+    }
+
+    .pub-item {
+      background: var(--cream);
+      border: 1.5px solid var(--tan-light);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+    }
+
+    .pub-year {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.6rem;
+    }
+
+    .pub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      line-height: 1.4;
+      color: var(--green-dark);
+      margin-bottom: 0.45rem;
+    }
+
+    .pub-meta {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+    }
+
+    /* ─── NEWS ────────────────────────────────────── */
+    .news {
+      background: var(--green-dark);
+      color: var(--white);
+    }
+
+    .news .section-title { color: var(--tan-light); }
+    .news .section-eyebrow { color: var(--tan); }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .news-card {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(196,176,138,0.2);
+      border-radius: 6px;
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .news-card:hover { background: rgba(255,255,255,0.1); }
+
+    .news-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 0.75rem;
+    }
+
+    .news-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      line-height: 1.35;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .news-excerpt {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: rgba(226,216,195,0.75);
+    }
+
+    .news-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tan);
+      text-decoration: none;
+    }
+
+    .news-link:hover { color: var(--white); }
+
+    /* ─── JOIN ────────────────────────────────────── */
+    .join {
+      background: var(--rust);
+      text-align: center;
+      padding: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 60px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .join .section-eyebrow { color: rgba(255,255,255,0.65); }
+
+    .join .section-title {
+      color: var(--white);
+      max-width: 620px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .join .section-body {
+      color: rgba(255,255,255,0.8);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--rust-dark);
+      padding: 0.9rem 2.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      padding: 5rem 6rem;
+    }
+
+    .footer-brand img {
+      height: 64px;
+      width: auto;
+      margin-bottom: 1.25rem;
+      opacity: 0.9;
+    }
+
+    .footer-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--tan-light);
+      margin-bottom: 1rem;
+    }
+
+    .footer-address {
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .footer-col-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--tan-light); }
+
+    .footer-bottom {
+      background: var(--text-dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ─── DIVIDER ORNAMENT ────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+
+    .ornament-line { flex: 1; height: 1.5px; background: var(--tan-light); }
+    .ornament-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); }
+
+    /* ─── MOBILE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+
+      .hero { grid-template-columns: 1fr; min-height: unset; }
+      .hero-left { padding: 5rem 2rem; }
+      .hero-right { padding: 3rem 2rem; min-height: 380px; }
+
+      .about-strip { grid-template-columns: 1fr; }
+      .about-text { padding: 4rem 2rem; }
+      .about-image { min-height: 260px; }
+
+      .research-header { grid-template-columns: 1fr; }
+      .research-cards { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+
+      footer { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 2rem; }
+      .footer-bottom { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; }
+
+      .join { padding: 5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ───────────────────────────────────────── -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <!-- Replace src with your actual logo path -->
+      <img src="final_logo_notitle.png" alt="Mallard Lab Logo" />
+      <span class="nav-logo-text">Mallard Lab</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#join" class="nav-cta">Join the Lab</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ───────────────────────────────────────── -->
+  <section class="hero" style="padding:0;">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Mallard Lab &mdash; Massachusetts General Hospital / Harvard Medical School</p>
+      <h1 class="hero-title">
+        Understanding <em>mental health</em><br/>
+        through <em>genomics.</em>
+      </h1>
+      <p class="hero-subtitle">
+        We study the genetic architecture of psychiatric disorders and related traits to better understand the biological mechanisms that shape risk, heterogeneity, and comorbidity across development.
+      </p>
+      <div class="hero-buttons">
+        <a href="#research" class="btn-primary">Our Research</a>
+        <a href="#about" class="btn-outline">About the Lab</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-wrap">
+        <!-- Replace src with your actual logo path -->
+        <img src="final_logo_wtitle.png" alt="Mallard Lab" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ───────────────────────────────────────── -->
+  <div class="about-strip" id="about">
+    <div class="about-text">
+      <p class="section-eyebrow">Who We Are</p>
+      <h2 class="section-title">A research program in psychiatric and statistical genetics</h2>
+      <p class="section-body">
+        The Mallard Lab is led by Travis T. Mallard, PhD, Assistant Professor of Psychology in the Department of Psychiatry at Harvard Medical School and Assistant Investigator in Psychiatry at Massachusetts General Hospital. The lab studies the etiology of psychopathology through the lens of genetic architecture, with particular emphasis on externalizing disorders, behavioral disinhibition, comorbidity, and heterogeneity.
+      </p>
+      <p class="section-body" style="margin-top:1.25rem;">
+        Across projects, we integrate large-scale GWAS, multivariate modeling, transcriptomic and neurogenomic annotation, and imaging genetics to map shared and specific liabilities across disorders, identify developmental mechanisms, and build more interpretable tools for genomic discovery.
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Active Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">60+</div>
+          <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Team Members</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-image">
+      <div class="about-image-placeholder">
+        <!-- Replace with a lab photo -->
+        Add headshot or lab photo
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── RESEARCH ────────────────────────────────────── -->
+  <section class="research" id="research">
+    <div class="research-header">
+      <div>
+        <p class="section-eyebrow">Active Work</p>
+        <h2 class="section-title">Selected active projects</h2>
+      </div>
+      <p class="section-body">
+        Current projects span psychiatric genetics, developmental neurogenomics, imaging genetics, and method development, but are unified by a common aim: to explain comorbidity, pleiotropy, and heterogeneity in psychopathology with greater mechanistic and statistical precision.
+      </p>
+    </div>
+    <div class="research-cards">
+
+      <div class="research-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M20 4C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4zm0 6a5 5 0 110 10A5 5 0 0120 10zm0 22c-4.418 0-8.418-1.79-11.313-4.688C9.637 25.09 14.47 22 20 22s10.363 3.09 11.313 5.313C28.418 30.21 24.418 32 20 32z" fill="#2E5545" opacity=".6"/>
+          </svg>
+          <h3 class="card-title">Multivariate dissection of externalizing disorders</h3>
+          <p class="card-text">We are conducting large-scale multivariate genomic studies of externalizing psychopathology to resolve how liability is shared and differentiated across ADHD, conduct disorder, antisocial behavior, substance use disorders, and related dimensions of disinhibition.</p>
+          <a href="#" class="card-link">Learn more →</a>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M10 20C10 14.477 14.477 10 20 10V4C11.163 4 4 11.163 4 20c0 8.837 7.163 16 16 16v-6C14.477 30 10 25.523 10 20z" fill="#C4622D" opacity=".6"/>
+            <path d="M30 20c0 5.523-4.477 10-10 10v6c8.837 0 16-7.163 16-16 0-8.837-7.163-16-16-16v6c5.523 0 10 4.477 10 10z" fill="#2E5545" opacity=".4"/>
+          </svg>
+          <h3 class="card-title">Developmental neurogenomics of psychiatric risk</h3>
+          <p class="card-text">A second line of work examines how genomic liability is expressed across neurodevelopment, including projects on cortical expansion, spatiotemporal gene expression, and the neurodevelopmental mechanisms that connect genomic variation to psychiatric risk.</p>
+          <a href="#" class="card-link">Learn more →</a>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <svg class="card-icon" viewBox="0 0 40 40" fill="none">
+            <rect x="6" y="18" width="28" height="4" rx="2" fill="#4A7A6B" opacity=".5"/>
+            <rect x="6" y="10" width="28" height="4" rx="2" fill="#4A7A6B" opacity=".35"/>
+            <rect x="6" y="26" width="28" height="4" rx="2" fill="#4A7A6B" opacity=".35"/>
+            <circle cx="16" cy="20" r="3" fill="#2E5545" opacity=".7"/>
+            <circle cx="24" cy="12" r="3" fill="#2E5545" opacity=".7"/>
+            <circle cx="20" cy="28" r="3" fill="#2E5545" opacity=".7"/>
+          </svg>
+          <h3 class="card-title">Methods for multivariate genomic discovery</h3>
+          <p class="card-text">The lab also develops statistical tools for complex trait genomics, including work related to Genomic SEM and new approaches designed to improve estimation, interpretability, and biologically informed inference in high-dimensional psychiatric genetics.</p>
+          <a href="#" class="card-link">Learn more →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── PUBLICATIONS ─────────────────────────────── -->
+  <section class="publications" id="publications">
+    <div class="research-header" style="margin-bottom:0;">
+      <div>
+        <p class="section-eyebrow">Selected Work</p>
+        <h2 class="section-title">Selected publications</h2>
+      </div>
+      <p class="section-body">
+        Selected publications reflect the broader research program in multivariate psychiatric genetics, neurodevelopmental genomics, and methodological innovation.
+      </p>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-year">2022</div>
+        <div class="pub-title">Multivariate GWAS of psychiatric disorders and their cardinal symptoms reveal two dimensions of cross-cutting genetic liabilities</div>
+        <div class="pub-meta"><em>Cell Genomics</em>. A multivariate dissection of shared genetic architecture across psychiatric disorders and symptoms.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-title">Multivariate analysis of 1.5 million people identifies genetic associations with traits related to self-regulation and addiction</div>
+        <div class="pub-meta"><em>Nature Neuroscience</em>. Large-scale genomic analysis of the externalizing spectrum and related traits.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-title">X-chromosome influences on neuroanatomical variation in humans</div>
+        <div class="pub-meta"><em>Nature Neuroscience</em>. Evidence that common X-linked variation contributes to individual differences in human brain structure.</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2019</div>
+        <div class="pub-title">Genomic structural equation modelling provides insights into the multivariate genetic architecture of complex traits</div>
+        <div class="pub-meta"><em>Nature Human Behaviour</em>. Foundational methodological work on Genomic SEM.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NEWS ─────────────────────────────────────────── -->
+  <section class="news" id="news">
+    <p class="section-eyebrow">Latest News</p>
+    <h2 class="section-title">Recent updates</h2>
+    <div class="news-grid">
+
+      <div class="news-card">
+        <p class="news-date">March 2026</p>
+        <h3 class="news-title">Brain &amp; Behavior Research Foundation Young Investigator Award begins</h3>
+        <p class="news-excerpt">The lab launched a new project on the genomic underpinnings of altered cortical expansion in externalizing psychopathology, integrating psychiatric and imaging genetics to clarify pleiotropic mechanisms relevant to prevention and intervention.</p>
+        <a href="#" class="news-link">Read more →</a>
+      </div>
+
+      <div class="news-card">
+        <p class="news-date">March 2025</p>
+        <h3 class="news-title">Promotion to Assistant Professor at Harvard Medical School</h3>
+        <p class="news-excerpt">Travis Mallard was promoted from Member of the Faculty to Assistant Professor of Psychology in the Department of Psychiatry at Harvard Medical School, while continuing his appointment as Assistant Investigator at Massachusetts General Hospital.</p>
+        <a href="#" class="news-link">Read more →</a>
+      </div>
+
+      <div class="news-card">
+        <p class="news-date">December 2023 &ndash; November 2027</p>
+        <h3 class="news-title">Ongoing NIH K08 on developmental neurogenomic mechanisms in externalizing disorders</h3>
+        <p class="news-excerpt">The lab&rsquo;s NIMH K08 supports work on the developmental neurogenomic pathways that confer liability for externalizing psychopathology by combining genomics, neuroscience, and informatics.</p>
+        <a href="#" class="news-link">Read more →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── JOIN ──────────────────────────────────────────── -->
+  <section class="join" id="join" style="padding-top:6rem;padding-bottom:6rem;">
+    <p class="section-eyebrow">We&rsquo;re Growing</p>
+    <h2 class="section-title">Join the Mallard Lab</h2>
+    <p class="section-body">
+      We&rsquo;re always excited to connect with curious, motivated scientists at every stage. If you are interested in genetics, neuroscience, and mental health, we would be glad to hear from you.
+    </p>
+    <a href="mailto:tmallard@mgh.harvard.edu" class="btn-white">Get in Touch</a>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-brand">
+      <img src="final_logo_notitle.png" alt="Mallard Lab" />
+      <p class="footer-tagline">"Understanding mental health through genomics."</p>
+      <p class="footer-address">
+        Department of Psychiatry<br/>
+        Massachusetts General Hospital / Harvard Medical School<br/>
+        185 Cambridge Street<br/>
+        Boston, MA 02114<br/><br/>
+        tmallard@mgh.harvard.edu
+      </p>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#news">Latest News</a></li>
+        <li><a href="#join">Join the Lab</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Connect</p>
+      <ul class="footer-links">
+        <li><a href="mailto:tmallard@mgh.harvard.edu">Email</a></li>
+        <li><a href="#publications">Selected Publications</a></li>
+        <li><a href="#research">Research Areas</a></li>
+        <li><a href="#news">Recent Updates</a></li>
+        <li><a href="#join">Training Opportunities</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span>© 2026 Mallard Lab. All rights reserved.</span>
+    <span>Massachusetts General Hospital / Harvard Medical School</span>
+  </div>
+
+</body>
+</html>
