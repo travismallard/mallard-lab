@@ -567,9 +567,9 @@
     footer {
       background: var(--text-dark);
       color: rgba(255,255,255,0.6);
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       padding: 5rem 6rem;
     }
 
@@ -883,9 +883,9 @@
       </p>
     </div>
 
-    <div style="justify-self: end;">
+    <div style="text-align:right;">
       <p class="footer-col-title">Quick Links</p>
-      <ul class="footer-links">
+      <ul class="footer-links" style="align-items:flex-end;">
         <li><a href="#">Home</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#research">Research</a></li>
