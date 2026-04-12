@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — Mallard Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-dark:   #2E5545;
+      --green-mid:    #4A7A6B;
+      --green-light:  #7AAB96;
+      --tan:          #C4B08A;
+      --tan-light:    #E2D8C3;
+      --cream:        #F2EDE3;
+      --rust:         #C4622D;
+      --rust-dark:    #9E4A1E;
+      --brown:        #7A4A2A;
+      --white:        #FDFAF5;
+      --text-dark:    #1C2B23;
+      --text-mid:     #3A4F44;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--tan-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 52px; width: auto; }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--green-dark);
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+    .nav-links a.active { color: var(--rust); }
+
+    .nav-cta {
+      background: var(--rust) !important;
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--rust-dark) !important; }
+
+    /* ─── PAGE HEADER ─────────────────────────────── */
+    .page-header {
+      background: var(--green-dark);
+      padding: 5rem 6rem 4.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 100% 100%, rgba(74,122,107,0.35) 0%, transparent 60%);
+    }
+
+    .page-header-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--tan);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.1;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--tan-light);
+      max-width: 580px;
+      position: relative;
+    }
+
+    /* ─── SECTION SHARED ──────────────────────────── */
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      line-height: 1.2;
+      color: var(--green-dark);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── PI SECTION ──────────────────────────────── */
+    .pi-section {
+      background: var(--white);
+      padding: 6rem;
+    }
+
+    .pi-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    .pi-photo {
+      position: relative;
+    }
+
+    .pi-photo-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .pi-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--tan-light);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tan);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .pi-photo-caption {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pi-link {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pi-link:hover { text-decoration: underline; }
+
+    .pi-info {}
+
+    .pi-role {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 0.5rem;
+    }
+
+    .pi-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--green-dark);
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+    }
+
+    .pi-title {
+      font-size: 0.95rem;
+      color: var(--green-mid);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .pi-bio p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 1.1rem;
+    }
+
+    .pi-bio p:last-child { margin-bottom: 0; }
+
+    .pi-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1.5px solid var(--tan-light);
+    }
+
+    .pi-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      background: var(--cream);
+      color: var(--green-dark);
+      border: 1px solid var(--tan-light);
+      border-radius: 3px;
+      padding: 0.3rem 0.75rem;
+    }
+
+    /* ─── TRAINEES SECTION ────────────────────────── */
+    .trainees-section {
+      padding: 6rem;
+      background: var(--cream);
+    }
+
+    .trainees-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .trainee-card {
+      background: var(--white);
+      border-radius: 6px;
+      border: 1.5px solid var(--tan-light);
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .trainee-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(46,85,69,0.1);
+    }
+
+    .trainee-photo-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--tan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .trainee-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .trainee-photo-placeholder {
+      color: var(--tan);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .trainee-body {
+      padding: 1.75rem;
+    }
+
+    .trainee-role {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 0.4rem;
+    }
+
+    .trainee-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--green-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .trainee-credentials {
+      font-size: 0.82rem;
+      color: var(--green-mid);
+      margin-bottom: 1rem;
+    }
+
+    .trainee-bio {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+    }
+
+    /* ─── JOIN STRIP ──────────────────────────────── */
+    .join {
+      background: var(--rust);
+      text-align: center;
+      padding: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 60px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .join .section-eyebrow { color: rgba(255,255,255,0.65); }
+
+    .join .section-title {
+      color: var(--white);
+      max-width: 620px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .join-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.8);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--rust-dark);
+      padding: 0.9rem 2.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 5rem 6rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-address {
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--tan-light); }
+
+    .footer-bottom {
+      background: var(--text-dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ─── MOBILE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+
+      .page-header { padding: 4rem 2rem 3rem; }
+
+      .pi-section { padding: 4rem 2rem; }
+      .pi-card { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pi-photo { max-width: 260px; }
+
+      .trainees-section { padding: 4rem 2rem; }
+      .trainees-grid { grid-template-columns: 1fr; }
+
+      .join { padding: 5rem 2rem; }
+
+      footer { flex-direction: column; gap: 2.5rem; padding: 4rem 2rem; }
+      .footer-bottom { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ───────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="final_logo_notitle.png" alt="Mallard Lab Logo" />
+      <span class="nav-logo-text">The Mallard Lab</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="index.html#research">Research</a></li>
+      <li><a href="index.html#publications">Publications</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="index.html#join" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── PAGE HEADER ───────────────────────────────── -->
+  <div class="page-header">
+    <p class="page-header-eyebrow">The Mallard Lab</p>
+    <h1 class="page-header-title">Our Team</h1>
+    <p class="page-header-subtitle">
+      We are a small, collaborative group of researchers working at the intersection of psychiatric genetics, neuroscience, and quantitative methods at Massachusetts General Hospital &amp; Harvard Medical School.
+    </p>
+  </div>
+
+  <!-- ─── PI ────────────────────────────────────────── -->
+  <section class="pi-section">
+    <p class="section-eyebrow">Principal Investigator</p>
+    <div class="pi-card">
+
+      <div class="pi-photo">
+        <!-- Replace with: <img src="travis_mallard.jpg" alt="Travis T. Mallard, PhD" class="pi-photo-img"> -->
+        <div class="pi-photo-placeholder">Add headshot here</div>
+        <div class="pi-photo-caption">
+          <a href="https://scholar.google.com/citations?user=YOURID" class="pi-link" target="_blank">Google Scholar →</a>
+          <a href="https://bsky.app/profile/wakeworksleep.bsky.social" class="pi-link" target="_blank">Bluesky →</a>
+          <a href="mailto:tmallard@mgh.harvard.edu" class="pi-link">Email →</a>
+        </div>
+      </div>
+
+      <div class="pi-info">
+        <p class="pi-role">Principal Investigator</p>
+        <h2 class="pi-name">Travis T. Mallard, PhD</h2>
+        <p class="pi-title">
+          Assistant Professor of Psychology, Department of Psychiatry, Harvard Medical School<br/>
+          Assistant Investigator in Psychiatry, Massachusetts General Hospital
+        </p>
+
+        <div class="pi-bio">
+          <p>
+            Travis Mallard is a psychiatric and statistical geneticist whose research centers on the genetic architecture of psychopathology, with a particular focus on externalizing disorders, behavioral disinhibition, psychiatric comorbidity, and heterogeneity. His work integrates large-scale genome-wide association studies, multivariate genomic modeling, and neurogenomic annotation to map shared and disorder-specific liabilities across the spectrum of mental illness.
+          </p>
+          <p>
+            Travis received his BS in Psychology from George Mason University and his PhD in Clinical Psychology from the University of Texas at Austin, where he trained under Kathryn Paige Harden. During his doctoral training he held visiting scholarships in statistical genetics at Vrije Universiteit Amsterdam (with Philipp Koellinger) and in neurogenomics at the NIMH Intramural Research Program (with Armin Raznahan). He completed his clinical internship at the Veterans Affairs Maryland Health Care System and the University of Maryland School of Medicine.
+          </p>
+          <p>
+            He joined Massachusetts General Hospital and Harvard Medical School as a T32 Postdoctoral Fellow in Precision &amp; Genomic Medicine under Jordan Smoller, and was appointed to the faculty in 2024, with promotion to Assistant Professor in 2025. He is a core member of the Psychiatric Genomics Consortium Cross-Disorder Working Group and the Externalizing Consortium Steering Committee.
+          </p>
+          <p>
+            His current work is supported by a NIMH K08 Mentored Career Development Award and a Brain &amp; Behavior Research Foundation Young Investigator Award.
+          </p>
+        </div>
+
+        <div class="pi-tags">
+          <span class="pi-tag">Psychiatric Genetics</span>
+          <span class="pi-tag">Externalizing Disorders</span>
+          <span class="pi-tag">Genomic SEM</span>
+          <span class="pi-tag">Multivariate GWAS</span>
+          <span class="pi-tag">Neurogenomics</span>
+          <span class="pi-tag">Imaging Genetics</span>
+          <span class="pi-tag">Behavioral Disinhibition</span>
+          <span class="pi-tag">Comorbidity</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── TRAINEES ──────────────────────────────────── -->
+  <section class="trainees-section">
+    <p class="section-eyebrow">Lab Members</p>
+    <h2 class="section-title">Trainees</h2>
+    <div class="trainees-grid">
+
+      <!-- Trainee 1 — placeholder -->
+      <div class="trainee-card">
+        <div class="trainee-photo-wrap">
+          <div class="trainee-photo-placeholder">Add photo here</div>
+        </div>
+        <div class="trainee-body">
+          <p class="trainee-role">Postdoctoral Fellow</p>
+          <h3 class="trainee-name">[Name]</h3>
+          <p class="trainee-credentials">[Degree, Institution]</p>
+          <p class="trainee-bio">[Brief bio describing research interests, background, and current project in the lab. 2–3 sentences.]</p>
+        </div>
+      </div>
+
+      <!-- Trainee 2 — placeholder -->
+      <div class="trainee-card">
+        <div class="trainee-photo-wrap">
+          <div class="trainee-photo-placeholder">Add photo here</div>
+        </div>
+        <div class="trainee-body">
+          <p class="trainee-role">Graduate Student</p>
+          <h3 class="trainee-name">[Name]</h3>
+          <p class="trainee-credentials">[Degree Program, Institution]</p>
+          <p class="trainee-bio">[Brief bio describing research interests, background, and current project in the lab. 2–3 sentences.]</p>
+        </div>
+      </div>
+
+      <!-- Trainee 3 — placeholder -->
+      <div class="trainee-card">
+        <div class="trainee-photo-wrap">
+          <div class="trainee-photo-placeholder">Add photo here</div>
+        </div>
+        <div class="trainee-body">
+          <p class="trainee-role">Research Assistant</p>
+          <h3 class="trainee-name">[Name]</h3>
+          <p class="trainee-credentials">[Degree, Institution]</p>
+          <p class="trainee-bio">[Brief bio describing research interests, background, and current project in the lab. 2–3 sentences.]</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── JOIN ──────────────────────────────────────── -->
+  <section class="join">
+    <p class="section-eyebrow">Join Us</p>
+    <h2 class="section-title">Interested in joining the lab?</h2>
+    <p class="join-body">
+      We welcome inquiries from prospective postdoctoral fellows, graduate students, and research assistants with interests in psychiatric genetics, statistical genomics, or computational neuroscience.
+    </p>
+    <a href="mailto:tmallard@mgh.harvard.edu" class="btn-white">Get in Touch</a>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer>
+    <div class="footer-brand">
+      <p class="footer-col-title">The Mallard Lab</p>
+      <p class="footer-address">
+        Department of Psychiatry<br/>
+        Massachusetts General Hospital<br/>
+        185 Cambridge Street<br/>
+        Boston, MA 02114<br/><br/>
+        Email: tmallard [at] mgh [dot] harvard [dot] edu<br/>
+        Bluesky: @wakeworksleep.bsky.social<br/>
+        &#120143;: @wakeworksleep
+      </p>
+    </div>
+
+    <div style="text-align:right;">
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links" style="align-items:flex-end;">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#publications">Publications</a></li>
+        <li><a href="index.html#news">Latest News</a></li>
+        <li><a href="index.html#join">Contact Us</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <div>
+      <div>© 2026 Mallard Lab. All rights reserved.</div>
+      <div style="margin-top:0.35rem;font-size:0.72rem;">Icons by Yasashii Studio, David Khai, and Yogi Aprelliyanto via the <a href="https://thenounproject.com" style="color:inherit;">Noun Project</a>.</div>
+    </div>
+    <span>Massachusetts General Hospital &amp; Harvard Medical School</span>
+  </div>
+
+</body>
+</html>
