@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Mallard Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-dark:   #2E5545;
+      --green-mid:    #4A7A6B;
+      --green-light:  #7AAB96;
+      --tan:          #C4B08A;
+      --tan-light:    #E2D8C3;
+      --cream:        #F2EDE3;
+      --rust:         #C4622D;
+      --rust-dark:    #9E4A1E;
+      --brown:        #7A4A2A;
+      --white:        #FDFAF5;
+      --text-dark:    #1C2B23;
+      --text-mid:     #3A4F44;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--tan-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 52px; width: auto; }
+
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--green-dark);
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+
+    .nav-cta {
+      background: var(--rust) !important;
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--rust-dark) !important; }
+
+    /* ─── PAGE HEADER ─────────────────────────────── */
+    .page-header {
+      background: var(--green-dark);
+      padding: 5rem 6rem 4.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 100% 100%, rgba(74,122,107,0.35) 0%, transparent 60%);
+    }
+
+    .page-header-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--tan);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.1;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-header-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--tan-light);
+      max-width: 660px;
+      position: relative;
+    }
+
+    /* ─── THEME NAV ───────────────────────────────── */
+    .theme-nav {
+      background: var(--white);
+      border-bottom: 2px solid var(--tan-light);
+      display: flex;
+      padding: 0 6rem;
+      overflow-x: auto;
+    }
+
+    .theme-nav-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      padding: 1.1rem 0;
+      margin-right: 2.5rem;
+      border-bottom: 2.5px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+      position: relative;
+      top: 2px;
+    }
+
+    .theme-nav-link.t1:hover { color: var(--green-dark); border-color: var(--green-dark); }
+    .theme-nav-link.t2:hover { color: var(--rust);       border-color: var(--rust); }
+    .theme-nav-link.t3:hover { color: var(--green-mid);  border-color: var(--green-mid); }
+
+    /* ─── RESEARCH THEME SECTIONS ─────────────────── */
+    .theme-section { padding: 6rem; }
+    .theme-section:nth-child(even) { background: var(--white); }
+    .theme-section:nth-child(odd)  { background: var(--cream); }
+
+    .theme-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1.5px solid var(--tan-light);
+    }
+
+    .theme-number {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 0.75rem;
+    }
+
+    .theme-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      color: var(--green-dark);
+      line-height: 1.2;
+    }
+
+    .theme-accent {
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      margin: 1.25rem 0;
+    }
+
+    .t1 .theme-accent { background: var(--green-dark); }
+    .t2 .theme-accent { background: var(--rust); }
+    .t3 .theme-accent { background: var(--green-mid); }
+
+    .theme-blurb p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 1rem;
+    }
+
+    .theme-blurb p:last-child { margin-bottom: 0; }
+    .theme-blurb strong { color: var(--text-dark); font-weight: 500; }
+
+    /* ─── PUB LIST ────────────────────────────────── */
+    .theme-pubs-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--green-mid);
+      margin-bottom: 1.75rem;
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .pub-card {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 1.5rem;
+      border: 1.5px solid var(--tan-light);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .theme-section:nth-child(even) .pub-card { background: var(--cream); }
+    .theme-section:nth-child(odd)  .pub-card { background: var(--white); }
+
+    .pub-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(46,85,69,0.1);
+    }
+
+    .pub-thumb-placeholder {
+      width: 90px;
+      aspect-ratio: 3/4;
+      border-radius: 3px;
+      background: var(--tan-light);
+      border: 1px solid var(--tan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pub-thumb img {
+      width: 90px;
+      aspect-ratio: 3/4;
+      border-radius: 3px;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--tan-light);
+      display: block;
+    }
+
+    .pub-thumb-icon { opacity: 0.4; }
+
+    .pub-year-journal {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .pub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--green-dark);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .pub-authors {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      margin-bottom: 0.6rem;
+      line-height: 1.6;
+    }
+
+    .pub-authors strong { color: var(--text-dark); font-weight: 600; }
+
+    .pub-abstract {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--text-mid);
+      opacity: 0.85;
+    }
+
+    .pub-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.9rem;
+    }
+
+    .pub-pdf-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--rust);
+      text-decoration: none;
+    }
+
+    .pub-pdf-link:hover { text-decoration: underline; }
+
+    .pub-doi-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--green-mid);
+      text-decoration: none;
+    }
+
+    .pub-doi-link:hover { text-decoration: underline; }
+
+    /* ─── JOIN ────────────────────────────────────── */
+    .join {
+      background: var(--rust);
+      text-align: center;
+      padding: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 60px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    .join-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1rem;
+    }
+
+    .join-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      color: var(--white);
+      max-width: 620px;
+      margin: 0 auto 1.25rem;
+      line-height: 1.2;
+    }
+
+    .join-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.8);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--rust-dark);
+      padding: 0.9rem 2.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 5rem 6rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-address { font-size: 0.85rem; line-height: 1.8; }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--tan-light); }
+
+    .footer-bottom {
+      background: var(--text-dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ─── MOBILE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 4rem 2rem 3rem; }
+      .theme-nav { padding: 0 2rem; }
+      .theme-section { padding: 4rem 2rem; }
+      .theme-header { grid-template-columns: 1fr; gap: 2rem; }
+      .pub-card { grid-template-columns: 70px 1fr; gap: 1rem; }
+      .pub-thumb-placeholder { width: 70px; }
+      .join { padding: 5rem 2rem; }
+      footer { flex-direction: column; gap: 2.5rem; padding: 4rem 2rem; }
+      .footer-bottom { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ───────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="CleanedUpLogoFinalNoTitle.svg" alt="Mallard Lab Logo" />
+      <span class="nav-logo-text">The Mallard Lab</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="index.html#publications">Publications</a></li>
+      <li><a href="index.html#news">News</a></li>
+      <li><a href="index.html#join" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── PAGE HEADER ───────────────────────────────── -->
+  <div class="page-header">
+    <p class="page-header-eyebrow">The Mallard Lab — Active Work</p>
+    <h1 class="page-header-title">Research</h1>
+    <p class="page-header-subtitle">
+      Our work sits at the crossroads of psychiatric genetics, neuroscience, and quantitative methods. Across projects, we aim to explain why mental disorders so often co-occur, why they look so different across individuals, and how genetic risk translates into biological and psychological outcomes.
+    </p>
+  </div>
+
+  <!-- ─── THEME NAV ──────────────────────────────────── -->
+  <div class="theme-nav">
+    <a href="#theme1" class="theme-nav-link t1">Genetic Architecture of Externalizing Disorders</a>
+    <a href="#theme2" class="theme-nav-link t2">Developmental Neurogenomics of Psychiatric Risk</a>
+    <a href="#theme3" class="theme-nav-link t3">Methods for Genomic Discovery</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       THEME 1
+  ════════════════════════════════════════════ -->
+  <section class="theme-section t1" id="theme1">
+    <div class="theme-header">
+      <div>
+        <p class="theme-number">Research Theme 01</p>
+        <h2 class="theme-title">Genetic Architecture of Externalizing Disorders</h2>
+        <div class="theme-accent"></div>
+      </div>
+      <div class="theme-blurb">
+        <p>
+          Externalizing disorders — including ADHD, conduct disorder, antisocial behavior, and substance use disorders — are among the most heritable and most consequential conditions in psychiatry. They account for enormous individual and societal burden, yet their shared genetic foundations remain incompletely understood. A central challenge is that these disorders rarely occur in isolation: they cluster together in individuals and families, suggesting they arise from common biological vulnerabilities.
+        </p>
+        <p>
+          Our lab uses large-scale multivariate genomic methods to characterize <strong>how genetic liability is shared and differentiated across the externalizing spectrum</strong>. Rather than studying disorders one at a time, we model their covariance structure directly — identifying both the shared genetic architecture that explains comorbidity and the disorder-specific signals that account for why individuals with similar risk profiles nonetheless present differently.
+        </p>
+        <p>
+          This work has contributed to some of the largest genomic studies of externalizing psychopathology to date, with samples exceeding four million individuals, and has generated polygenic tools with meaningful predictive utility as well as new hypotheses about the synaptic and neurodevelopmental pathways through which externalizing risk operates.
+        </p>
+      </div>
+    </div>
+
+    <p class="theme-pubs-title">Selected Publications</p>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <!-- To add a PDF preview thumbnail: replace the placeholder div with
+             <div class="pub-thumb"><img src="pdfs/previews/williams2026.jpg" alt=""></div> -->
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2026 — medRxiv</p>
+          <p class="pub-title">Genomic insights into substance use and disinhibitory disorders</p>
+          <p class="pub-authors">Williams CM, Poore HE, Londono-Correa D, Ning Y, Courchesne-Krak NS, Choi M, Tubbs JD, Rosenblatt M, Tanksley PT, Aliev F, Bell NY, Deak JD, Gonzalez J, Jennings M, Johnson EC, Phung TN, Schipper M, de Vlaming R, Yuan K, Zhou H, Balcke E, Brislin SJ, COGA Collaborators, de la Fuente J, Gandal MJ, Ge T, Gelernter J, Posthuma D, Smoller JW, Tucker-Drob EM, Waldman ID, Palmer AA, Barr PB, Sanchez-Roige S, Linnér RK, Dick DM, Harden KP, <strong>Mallard TT</strong>.</p>
+          <p class="pub-abstract">By analyzing data from over four million individuals, this study mapped the shared genetics of externalizing spectrum disorders at unprecedented scale, identifying more than 900 putative causal genes and pinpointing key synaptic pathways. It also introduced a polygenic score explaining approximately 12% of variance in externalizing outcomes — one of the strongest predictive instruments yet developed for this spectrum.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.64898/2026.02.09.26344198" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2024 — Nature Mental Health</p>
+          <p class="pub-title">Characterizing the phenotypic and genetic structure of psychopathology in UK Biobank</p>
+          <p class="pub-authors">Williams CM, Peyre H, Wolfram T, Lee YH, Seidlitz J, Ge T, Smoller JW, <strong>Mallard TT</strong>*, Ramus F*.</p>
+          <p class="pub-abstract">Analyzing genetic, brain imaging, and clinical data from over 400,000 individuals, this study showed that domain-level transdiagnostic factors are significantly more informative for genomic discovery than a single general psychopathology factor — challenging the theoretical utility of an all-encompassing p-factor for understanding psychiatric comorbidity and the unique biological correlates it tends to obscure.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1038/s44220-024-00272-8" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2021 — Nature Neuroscience</p>
+          <p class="pub-title">Multivariate analysis of 1.5 million people identifies genetic associations with traits related to self-regulation and addiction</p>
+          <p class="pub-authors">Karlsson Linnér R*, <strong>Mallard TT</strong>*, Barr PB*, Sanchez-Roige S*, Madole JW, Driver MN, Poore HE, de Vlaming R, Grotzinger AD, Tielbeek JJ, Johnson EC, Liu M, Rosenthal SB, Ideker T, Zhou H, Kember RL, Pasman JA, Verweij KJH, Liu DJ, Vrieze S, Kranzler HR, Gelernter J, Harris KM, Tucker-Drob EM, Waldman ID, Palmer AA, Harden KP, Koellinger PD, Dick DM.</p>
+          <p class="pub-abstract">A large-scale multivariate genomic study of the externalizing spectrum across 1.5 million individuals, identifying genetic variants associated with a broad liability to self-regulatory failure, substance use, and antisocial behavior, and linking this liability to specific neurodevelopmental gene sets. (* denotes equal contribution.)</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1038/s41593-021-00890-w" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       THEME 2
+  ════════════════════════════════════════════ -->
+  <section class="theme-section t2" id="theme2">
+    <div class="theme-header">
+      <div>
+        <p class="theme-number">Research Theme 02</p>
+        <h2 class="theme-title">Developmental Neurogenomics of Psychiatric Risk</h2>
+        <div class="theme-accent"></div>
+      </div>
+      <div class="theme-blurb">
+        <p>
+          Mental disorders are not simply adult conditions with adult causes — they emerge from developmental processes that unfold across the lifespan, and often have their roots in the prenatal and early postnatal brain. Understanding when and where in the brain genetic risk becomes biologically active is important to explaining how psychiatric disorders arise and to identifying potential windows for prevention and intervention.
+        </p>
+        <p>
+          A second line of work in the lab examines how genomic liability relates to the structure and function of the brain. This includes <strong>imaging genetics studies</strong> of cortical organization, surface area, volume, and connectivity, as well as projects that use transcriptomic and neuroanatomical data to ask when and in which cell types psychiatric risk genes are expressed across neurodevelopment. We view these as complementary approaches: imaging genetics can reveal where in the brain genetic risk manifests; neurogenomic annotation can illuminate the molecular mechanisms through which it operates.
+        </p>
+        <p>
+          Current projects in this area focus on the neurodevelopmental pathways linking externalizing genetic liability to altered cortical organization, and on the pleiotropic architecture of impulsivity and its neurodevelopmental correlates. This work draws on methods from psychiatric genetics, developmental neuroscience, and brain imaging — areas that together can address questions that are difficult to approach from within any single discipline.
+        </p>
+      </div>
+    </div>
+
+    <p class="theme-pubs-title">Selected Publications</p>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2025 — American Journal of Psychiatry</p>
+          <p class="pub-title">Characterizing the Pleiotropic Architecture of Impulsivity and Its Links to Psychopathology and Neurodevelopment</p>
+          <p class="pub-authors"><strong>Mallard TT</strong>, Tubbs JD, Jennings M, Zhang Y, Gustavson DE, Grotzinger AD, Westwater ML, Williams CM, Fortgang RG, Elson SL, Fontanillas P, Davis LK, Raznahan A, Tucker-Drob EM, Choi KW, Ge T, Smoller JW, Palmer AA, Sanchez-Roige S.</p>
+          <p class="pub-abstract">Using genetic data from over 130,000 individuals, this study showed that specific facets of impulsivity are driven by distinct neurodevelopmental pathways — arguing against treating all impulsive traits as interchangeable. Sensation seeking and lack of perseverance, for instance, exhibit largely unique biological correlates despite their surface similarity, with implications for how impulsivity is conceptualized in psychiatric genetics and neuroscience.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1176/appi.ajp.20240382" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2023 — Nature Communications</p>
+          <!-- ⚠ Please verify the full title, author list, and DOI for this paper -->
+          <p class="pub-title">[Title — please verify from your records]</p>
+          <p class="pub-authors">Grotzinger AD, <strong>Mallard TT</strong>, et al.</p>
+          <p class="pub-abstract">[Abstract — this paper could not be located with confidence from the CV provided. Please fill in the title, full author list, abstract, and DOI.]</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="#" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2021 — Nature Neuroscience</p>
+          <p class="pub-title">X-chromosome influences on neuroanatomical variation in humans</p>
+          <p class="pub-authors"><strong>Mallard TT</strong>, Liu S, Seidlitz J, Ma Z, Moraczewski D, Thomas A, Raznahan A.</p>
+          <p class="pub-abstract">This study demonstrated that common X-linked genetic variation contributes meaningfully to individual differences in human brain structure, with effects that differ between males and females. The work highlights the importance of sex chromosome variation — typically excluded from standard GWAS — for understanding neuroanatomical diversity and its potential links to sex differences in psychiatric risk.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1038/s41593-021-00890-w" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       THEME 3
+  ════════════════════════════════════════════ -->
+  <section class="theme-section t3" id="theme3">
+    <div class="theme-header">
+      <div>
+        <p class="theme-number">Research Theme 03</p>
+        <h2 class="theme-title">Methods for Genomic Discovery</h2>
+        <div class="theme-accent"></div>
+      </div>
+      <div class="theme-blurb">
+        <p>
+          Progress in psychiatric genetics depends not only on larger samples, but on better analytic tools. Standard genome-wide association studies analyze one trait at a time, which is a poor fit for a field defined by comorbidity, heterogeneity, and multidimensional outcomes. Developing methods that allow researchers to <strong>model the genetic architecture of multiple traits jointly</strong> — improving statistical power, biological interpretability, and inferential precision — is a growing area of focus for the lab.
+        </p>
+        <p>
+          Lab members have contributed to the development and extension of <a href="https://github.com/GenomicSEM/GenomicSEM" style="color:var(--rust);text-decoration:none;font-weight:500;">Genomic SEM</a> (Genomic Structural Equation Modeling), a widely used framework for fitting structural models to GWAS summary statistics across multiple traits. Specific contributions include work on stratified Genomic SEM, genomic structural invariance testing, and applications of these tools to psychiatric comorbidity and neurodevelopment. The lab continues to develop and apply these approaches, including newer work on genomic taxometric analysis (GTACCC) — a method for characterizing the latent structure of psychiatric dimensions and the degree to which they reflect categorical versus continuous genetic architectures.
+        </p>
+        <p>
+          We are committed to open science and release software and code publicly wherever possible.
+        </p>
+      </div>
+    </div>
+
+    <p class="theme-pubs-title">Selected Publications</p>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2025 — Nature Genetics</p>
+          <p class="pub-title">Comparison of the multivariate genetic architecture of eight major psychiatric disorders across sex</p>
+          <p class="pub-authors">Schwaba T, <strong>Mallard TT</strong>, Maihofer AX, Rhemtulla M, Lee PH, Smoller JW, Davis LK, Nivard MG, Grotzinger AD, Tucker-Drob EM.</p>
+          <p class="pub-abstract">Applying multivariate genomic methods to GWAS data from eight major psychiatric disorders stratified by sex, this study characterizes how the genetic architecture of psychiatric comorbidity differs between males and females — revealing meaningful sex differences in the structure of shared genetic liability that are obscured when sexes are combined in standard analyses.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1038/s41588-025-02093-6" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2025 — medRxiv</p>
+          <p class="pub-title">Genomic taxometric analysis of negative emotionality and major depressive disorder highlights a gradient of genetic differentiation across the severity spectrum</p>
+          <p class="pub-authors">Ennis GW, <strong>Mallard TT</strong>, de la Fuente J, Williams CM, Schwaba T, Tucker-Drob EM.</p>
+          <p class="pub-abstract">This paper introduces genomic taxometric analysis (GTACCC), a new method for evaluating the latent structure of psychiatric phenotypes at the genomic level. Applied to negative emotionality and major depressive disorder, the approach reveals that genetic differentiation across the severity spectrum is better characterized as a gradient than as a categorical boundary — with implications for how psychiatric dimensions are defined and studied.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1101/2025.01.30.25321336" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb-placeholder">
+          <svg class="pub-thumb-icon" width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <rect x="1" y="1" width="26" height="34" rx="2" stroke="#C4B08A" stroke-width="1.5"/>
+            <line x1="6" y1="10" x2="22" y2="10" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="15" x2="22" y2="15" stroke="#C4B08A" stroke-width="1.2"/>
+            <line x1="6" y1="20" x2="16" y2="20" stroke="#C4B08A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="pub-content">
+          <p class="pub-year-journal">2022 — Nature Genetics</p>
+          <p class="pub-title">Genetic architecture of 11 major psychiatric disorders at biobehavioral, functional genomic and molecular genetic levels of analysis</p>
+          <p class="pub-authors">Grotzinger AD, <strong>Mallard TT</strong>, Akingbuwa WA, Ip HF, Adams MJ, Lewis CM, McIntosh AM, Grove J, Dalsgaard S, Lesch KP, Strom N, Meier SM, Mattheisen M, Børglum AD, Mors O, Breen G, Lee PH, Kendler KS, Smoller JW, Tucker-Drob EM, Nivard MG.</p>
+          <p class="pub-abstract">Using Genomic SEM to jointly model GWAS data from eleven major psychiatric disorders, this study characterizes shared genetic architecture across biobehavioral, functional genomic, and molecular levels of analysis — identifying common and disorder-specific pathways that cut across diagnostic boundaries and pointing toward new targets for mechanistic research.</p>
+          <div class="pub-footer">
+            <a href="#" class="pub-pdf-link">↓ PDF</a>
+            <a href="https://doi.org/10.1038/s41588-022-01057-4" class="pub-doi-link">DOI →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── JOIN ──────────────────────────────────────── -->
+  <section class="join">
+    <p class="join-eyebrow">Get Involved</p>
+    <h2 class="join-title">Interested in our work?</h2>
+    <p class="join-body">
+      We welcome inquiries from prospective trainees, collaborators, and anyone curious about what we do. If you have questions about our research or are interested in joining the lab, please reach out.
+    </p>
+    <a href="mailto:tmallard@mgh.harvard.edu" class="btn-white">Get in Touch</a>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer>
+    <div>
+      <p class="footer-col-title">The Mallard Lab</p>
+      <p class="footer-address">
+        Department of Psychiatry<br/>
+        Massachusetts General Hospital<br/>
+        185 Cambridge Street<br/>
+        Boston, MA 02114<br/><br/>
+        Email: tmallard [at] mgh [dot] harvard [dot] edu<br/>
+        Bluesky: @wakeworksleep.bsky.social<br/>
+        &#120143;: @wakeworksleep
+      </p>
+    </div>
+
+    <div style="text-align:right;">
+      <p class="footer-col-title">Quick Links</p>
+      <ul class="footer-links" style="align-items:flex-end;">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="index.html#publications">Publications</a></li>
+        <li><a href="index.html#news">Latest News</a></li>
+        <li><a href="index.html#join">Contact Us</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <div>
+      <div>© 2026 Mallard Lab. All rights reserved.</div>
+      <div style="margin-top:0.35rem;font-size:0.72rem;">Icons by Yasashii Studio, David Khai, and Yogi Aprelliyanto via the <a href="https://thenounproject.com" style="color:inherit;">Noun Project</a>.</div>
+    </div>
+    <span>Massachusetts General Hospital &amp; Harvard Medical School</span>
+  </div>
+
+</body>
+</html>
