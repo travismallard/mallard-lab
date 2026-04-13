@@ -455,6 +455,68 @@
       justify-content: space-between;
     }
 
+    /* ─── ALUMNI SECTION ─────────────────────────── */
+    .alumni-section {
+      background: var(--green-dark);
+      padding: 6rem;
+    }
+
+    .alumni-section .section-eyebrow { color: var(--tan); }
+    .alumni-section .section-title   { color: var(--tan-light); margin-bottom: 3rem; }
+
+    .alumni-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid rgba(196,176,138,0.2);
+    }
+
+    .alumni-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(196,176,138,0.2);
+    }
+
+    .alumni-role {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--tan);
+      margin-bottom: 0.6rem;
+    }
+
+    .alumni-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .alumni-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    .alumni-years {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--tan);
+      white-space: nowrap;
+    }
+
+    .alumni-credentials {
+      font-size: 0.82rem;
+      color: rgba(226,216,195,0.65);
+      margin-bottom: 0.6rem;
+    }
+
+    .alumni-description {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: rgba(226,216,195,0.75);
+    }
+
     /* ─── MOBILE ──────────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 0 1.5rem; }
@@ -468,6 +530,9 @@
 
       .trainees-section { padding: 4rem 2rem; }
       .trainees-grid { grid-template-columns: 1fr; }
+
+      .alumni-section { padding: 4rem 2rem; }
+      .alumni-section { padding: 4rem 2rem; }
 
       .join { padding: 5rem 2rem; }
 
@@ -602,6 +667,48 @@
     </div>
   </section>
 
+  <!-- ─── FORMER TRAINEES ──────────────────────────── -->
+  <section class="alumni-section">
+    <p class="section-eyebrow">Alumni</p>
+    <h2 class="section-title">Former Trainees</h2>
+    <div class="alumni-list">
+
+      <!-- Add entries following this pattern.
+           "destination" is where they went next — e.g. "Now: Assistant Professor, University of X" -->
+
+      <div class="alumni-item">
+        <p class="alumni-role">Postdoctoral Fellow</p>
+        <div class="alumni-header">
+          <p class="alumni-name">[Name]</p>
+          <p class="alumni-years">[Year]–[Year]</p>
+        </div>
+        <p class="alumni-credentials">[PhD, Institution]</p>
+        <p class="alumni-description">[Brief description of what they worked on in the lab. 1–2 sentences.]</p>
+      </div>
+
+      <div class="alumni-item">
+        <p class="alumni-role">Graduate Student</p>
+        <div class="alumni-header">
+          <p class="alumni-name">[Name]</p>
+          <p class="alumni-years">[Year]–[Year]</p>
+        </div>
+        <p class="alumni-credentials">[Degree Program, Institution]</p>
+        <p class="alumni-description">[Brief description of what they worked on in the lab. 1–2 sentences.]</p>
+      </div>
+
+      <div class="alumni-item">
+        <p class="alumni-role">Research Assistant</p>
+        <div class="alumni-header">
+          <p class="alumni-name">[Name]</p>
+          <p class="alumni-years">[Year]–[Year]</p>
+        </div>
+        <p class="alumni-credentials">[Degree, Institution]</p>
+        <p class="alumni-description">[Brief description of what they worked on in the lab. 1–2 sentences.]</p>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ─── JOIN ──────────────────────────────────────── -->
   <section class="join">
     <p class="section-eyebrow">Join Us</p>
@@ -609,7 +716,7 @@
     <p class="join-body">
       We welcome inquiries from prospective postbaccalaureate and postdoctoral trainees with interests in statistical genetics, bioinformatics, or computational neuroscience.
     </p>
-    <a href="mailto:tmallard@mgh.harvard.edu" class="btn-white">Get in Touch</a>
+    <a href="/cdn-cgi/l/email-protection#27534a464b4b465543674a404f094f46555146554309424352" class="btn-white">Get in Touch</a>
   </section>
 
   <!-- ─── FOOTER ────────────────────────────────────── -->
@@ -645,8 +752,4 @@
       <div>© 2026 Mallard Lab. All rights reserved.</div>
       <div style="margin-top:0.35rem;font-size:0.72rem;">Icons by Yasashii Studio, David Khai, and Yogi Aprelliyanto via the <a href="https://thenounproject.com" style="color:inherit;">Noun Project</a>.</div>
     </div>
-    <span>Massachusetts General Hospital &amp; Harvard Medical School</span>
-  </div>
-
-</body>
-</html>
+    <span>Massachusetts General Hospital &amp; Harvard M
