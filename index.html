@@ -385,6 +385,59 @@
     
     .lightbox-trigger:hover { opacity: 0.88; }
 
+    /* ─── RESEARCH HIGHLIGHTS CAROUSEL ─────────────── */
+    .highlight-carousel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    .highlight-image-wrap {
+      position: relative;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(28,43,35,0.55);
+      color: var(--white);
+      font-size: 1.5rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .carousel-arrow:hover { background: rgba(28,43,35,0.85); }
+
+    .carousel-arrow-left { left: 0.75rem; }
+    .carousel-arrow-right { right: 0.75rem; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .carousel-dot.active { background: var(--white); transform: scale(1.3); }
+
     /* ─── RESEARCH ────────────────────────────────── */
     .research {
       background: var(--cream);
@@ -792,13 +845,16 @@
     </div>
     -->
     <div class="about-image" style="display:flex; align-items:center; justify-content:center; padding:3rem;">
-      <div style="display:flex; flex-direction:column; gap:1.25rem; width:100%;">
-        <img src="images/plots/HighlightsEXT2.jpg" alt="Research highlights figure" class="lightbox-trigger" onclick="openLightbox(this.src, this.alt)" style="width:100%; display:block; border-radius:4px;" />
-        <div style="background:var(--white); border-radius:4px; padding:1rem 1.25rem;">
-          <p style="font-size:0.9rem; line-height:1.6; color:var(--text-mid);">
-            <strong style="color:var(--text-dark);">Highlights from our research!</strong> This figure summarizes key findings from our latest multi-ancestry GWAS of externalizing psychopathology (<a href="https://doi.org/10.64898/2026.02.09.26344198" style="color:var(--rust);text-decoration:none;font-weight:500;">Williams et al., 2026, <em>medRxiv</em></a>). By modeling shared liability across multiple traits and ancestry groups, we identified nearly 1,300 genomic regions associated with externalizing risk (panels a,b). Follow-up analyses linked this signal to early neurodevelopment, synaptic organization, and the sustained involvement of glutamatergic and GABAergic systems (panels c,d). The resulting polygenic scores showed strong predictive accuracy, and their associations with psychiatric and medical outcomes varied across the lifespan (panels e,f).
-          </p>
+      <div class="highlight-carousel">
+        <div class="highlight-image-wrap">
+          <img id="highlight-img" src="" alt="" class="lightbox-trigger" onclick="openLightbox(this.src, this.alt)" style="width:100%; display:block; border-radius:4px;" />
+          <button class="carousel-arrow carousel-arrow-left" onclick="highlightNav(-1)" aria-label="Previous research highlight">&#8249;</button>
+          <button class="carousel-arrow carousel-arrow-right" onclick="highlightNav(1)" aria-label="Next research highlight">&#8250;</button>
         </div>
+        <div style="background:var(--white); border-radius:4px; padding:1rem 1.25rem;">
+          <p id="highlight-caption" style="font-size:0.9rem; line-height:1.6; color:var(--text-mid);"></p>
+        </div>
+        <div class="carousel-dots" id="highlight-dots"></div>
       </div>
     </div>
   </div>
@@ -808,7 +864,7 @@
           <button class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&#215;</button>
           <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
         </div>
-        
+
         <script>
           function openLightbox(src, alt) {
             document.getElementById('lightbox-img').src = src;
@@ -816,15 +872,58 @@
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
           }
-        
+
           function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
           }
-        
+
           document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeLightbox();
           });
+
+          /* ─── RESEARCH HIGHLIGHTS CAROUSEL ───────────────
+             To add a new highlight, append an entry to this array. */
+          var highlights = [
+            {
+              img: 'images/plots/HighlightsEXT2.jpg',
+              alt: 'Research highlights figure — multi-ancestry GWAS of externalizing psychopathology',
+              caption: '<strong style="color:var(--text-dark);">Highlights from our research!</strong> This figure summarizes key findings from our latest multi-ancestry GWAS of externalizing psychopathology (<a href="https://doi.org/10.64898/2026.02.09.26344198" style="color:var(--rust);text-decoration:none;font-weight:500;">Williams et al., 2026, <em>medRxiv</em></a>). By modeling shared liability across multiple traits and ancestry groups, we identified nearly 1,300 genomic regions associated with externalizing risk, implicating many novel genes in the etiology of these disorders. Follow-up analyses linked this signal to early neurodevelopment, synaptic organization, and the prominent involvement of glutamatergic and GABAergic systems. Polygenic scores based on these results showed strong predictive accuracy, and their associations with psychiatric and medical outcomes varied across the lifespan, providing researchers with a new tool for understanding patient risk and comorbidity.'
+            },
+            {
+              img: 'images/plots/HighlightsCE.jpg',
+              alt: 'Research highlights figure — multivariate GWAS of cortical expansion',
+              caption: '<strong style="color:var(--text-dark);">Highlights from our research!</strong> Key findings from our recent multivariate GWAS of cortical expansion (<a href="https://www.biorxiv.org/content/10.64898/2026.06.22.733725v1" style="color:var(--rust);text-decoration:none;font-weight:500;">Rosenblatt et al., 2026, <em>bioRxiv</em></a>). One of the defining features of the human brain is cortical expansion—the process by which the cortex grows and folds during development. But what is the genetic architecture underlying this process? Through a suite of multivariate GWAS and integrative bioinformatic analyses, we mapped its etiology across biological scales, demonstrating that its polygenic architecture is rooted in early prenatal neurodevelopment, involving a diverse cellular ensemble with broad implications for brain health and disease.'
+            }
+          ];
+
+          var highlightIndex = 0;
+
+          function renderHighlight() {
+            var h = highlights[highlightIndex];
+            var img = document.getElementById('highlight-img');
+            img.src = h.img;
+            img.alt = h.alt;
+            document.getElementById('highlight-caption').innerHTML = h.caption;
+
+            var dots = document.getElementById('highlight-dots');
+            dots.innerHTML = '';
+            highlights.forEach(function (_, i) {
+              var dot = document.createElement('span');
+              dot.className = 'carousel-dot' + (i === highlightIndex ? ' active' : '');
+              dot.setAttribute('role', 'button');
+              dot.setAttribute('aria-label', 'Go to research highlight ' + (i + 1));
+              dot.onclick = function () { highlightIndex = i; renderHighlight(); };
+              dots.appendChild(dot);
+            });
+          }
+
+          function highlightNav(delta) {
+            highlightIndex = (highlightIndex + delta + highlights.length) % highlights.length;
+            renderHighlight();
+          }
+
+          renderHighlight();
         </script>
 
   <!-- ─── RESEARCH ────────────────────────────────────── -->
