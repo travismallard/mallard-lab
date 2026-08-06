@@ -518,6 +518,10 @@
     }
 
     /* ─── MOBILE ──────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .trainees-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 900px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
@@ -529,7 +533,6 @@
       .pi-photo { max-width: 260px; }
 
       .trainees-section { padding: 4rem 2rem; }
-      .trainees-grid { grid-template-columns: 1fr; }
 
       .alumni-section { padding: 4rem 2rem; }
       .alumni-section { padding: 4rem 2rem; }
@@ -538,6 +541,10 @@
 
       footer { flex-direction: column; gap: 2.5rem; padding: 4rem 2rem; }
       .footer-bottom { padding: 1.25rem 2rem; flex-direction: column; gap: 0.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      .trainees-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -702,7 +709,7 @@
           <p class="alumni-years">2024–2025</p>
         </div>
         <p class="alumni-credentials">PhD Behavioural Genetics and Bioinformatics, University of Hong Kong</p>
-        <p class="alumni-description">Led a project characterizing molecular genetic influences on sustained attention and its genomic relationships with executive functioning and psychopathology.</p>
+        <p class="alumni-description">Led a project characterizing molecular genetic influences on sustained attention and its genomic relationships with executive functioning and psychopathology. Now: Assistant Professor, Massachusetts General Hospital & Harvard Medical School.</p>
       </div>
 
     </div>
